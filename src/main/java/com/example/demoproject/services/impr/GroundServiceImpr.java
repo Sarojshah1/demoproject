@@ -2,7 +2,7 @@ package com.example.demoproject.services.impr;
 
 import com.example.demoproject.Entity.Ground;
 import com.example.demoproject.pojo.GroundPojo;
-import com.example.demoproject.repository.ground;
+import com.example.demoproject.repository.GroundRepository;
 import com.example.demoproject.services.groundService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,25 +14,24 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class GroundServiceImpr implements groundService {
-    private final ground groundRepository;
+
+    private final GroundRepository groundRepository;
+
     @Override
-    public List<Ground> getAll(){
-        return groundRepository.findAll();
-
+    public void deleteById(Integer id) {
+        groundRepository.deleteById(id);
     }
-    public void saveData(@RequestBody GroundPojo groundPojo) {
 
+    @Override
+    public List<Ground> getAll() {
+        return groundRepository.findAll();
+    }
+
+    public void saveData(@RequestBody GroundPojo groundpojo) {
         Ground ground = new Ground();
-
-        ground.setId(groundPojo.getId());
-
-        ground.setGround_name(groundPojo.getName());
-
+        ground.setId(groundpojo.getId());
+        ground.setGround_name(groundpojo.getName());
         groundRepository.save(ground);
-
-
-
-
     }
 
 }
